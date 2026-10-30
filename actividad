@@ -1,0 +1,527 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --ink: #172033;
+  --muted: #697386;
+  --primary: #5b4bdb;
+  --primary-dark: #4536bb;
+  --surface: #ffffff;
+  --background: #f5f6fb;
+  --border: #e7e9f2;
+  --shadow: 0 14px 35px rgba(28, 35, 75, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--background);
+}
+
+.hero {
+  padding: 54px 24px 78px;
+  color: white;
+  background: radial-gradient(circle at 85% 15%, rgba(151, 133, 255, .5), transparent 28%),
+              linear-gradient(120deg, #26235f 0%, #5144c9 58%, #7669ed 100%);
+}
+
+.hero-content, .container {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.hero h1 {
+  margin: 18px 0 10px;
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+}
+
+.hero p {
+  max-width: 620px;
+  margin: 0;
+  color: #e5e2ff;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.container {
+  padding: 0 24px 48px;
+  margin-top: -34px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 22px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.section-heading h2 { margin: 0 0 5px; font-size: 21px; }
+.section-heading p { margin: 0; color: var(--muted); font-size: 13px; }
+
+.reload-button, .done-button {
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  padding: 11px 16px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+
+.reload-button:hover, .done-button:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.post-card {
+  width: 100%;
+  min-height: 215px;
+  padding: 22px;
+  text-align: left;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(28, 35, 75, 0.035);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+
+.post-card:hover, .post-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: #b8b0ff;
+  box-shadow: var(--shadow);
+  outline: none;
+}
+
+.post-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 30px;
+  border-radius: 9px;
+  color: var(--primary);
+  background: #eeecff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.post-card h3 {
+  margin: 16px 0 10px;
+  font-size: 16px;
+  line-height: 1.45;
+  text-transform: capitalize;
+}
+
+.post-body {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: #4d5670;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: white;
+  background: linear-gradient(135deg, #6657e8, #a18cff);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.status {
+  margin: 16px 0;
+  padding: 16px;
+  color: var(--muted);
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+}
+.status:empty { display: none; }
+.status.error { color: #a12a36; background: #fff0f1; border-color: #ffd0d4; }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(16, 20, 43, .62);
+  backdrop-filter: blur(5px);
+}
+.modal-overlay[hidden] { display: none; }
+
+.modal {
+  position: relative;
+  width: min(510px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 0 25px 80px rgba(0,0,0,.25);
+  animation: appear .2s ease-out;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(10px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  color: #626b80;
+  background: #f1f2f8;
+  font-size: 25px;
+  cursor: pointer;
+}
+.close-button:hover { background: #e5e6f0; }
+
+.modal-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 17px;
+  border-radius: 16px;
+  background: #eeecff;
+  font-size: 25px;
+}
+
+.modal-kicker {
+  margin: 0 0 7px;
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.modal h2 { margin: 0; font-size: 25px; letter-spacing: -.5px; }
+.modal-subtitle { margin: 8px 0 22px; color: var(--muted); font-size: 13px; }
+
+.user-details { display: grid; gap: 10px; }
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fcfcff;
+}
+
+.detail-label { color: var(--muted); font-size: 12px; font-weight: 600; }
+.detail-value { min-width: 0; overflow-wrap: anywhere; font-size: 13px; font-weight: 700; }
+.detail-value a { color: var(--primary); text-decoration: none; }
+.detail-value a:hover { text-decoration: underline; }
+
+.done-button { width: 100%; margin-top: 20px; padding: 13px; }
+
+footer {
+  padding: 24px;
+  text-align: center;
+  color: #8a91a3;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .hero { padding: 38px 20px 65px; }
+  .container { padding: 0 15px 32px; }
+  .section-heading { padding: 18px; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .post-card { min-height: 0; }
+  .modal { padding: 25px 20px; }
+  .detail-row { grid-template-columns: 85px minmax(0, 1fr); }
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicaciones | JSONPlaceholder</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">API · JSONPLACEHOLDER</span>
+      <h1>Explora las publicaciones</h1>
+      <p>Selecciona una tarjeta para conocer los datos del usuario que la publicó.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="section-heading">
+      <div>
+        <h2>Publicaciones</h2>
+        <p id="results-count">Cargando publicaciones...</p>
+      </div>
+      <button id="reload-button" class="reload-button" type="button">↻ Recargar</button>
+    </div>
+
+    <div id="status" class="status" role="status">Conectando con JSONPlaceholder...</div>
+    <section id="posts-container" class="posts-grid" aria-label="Lista de publicaciones"></section>
+  </main>
+
+  <div id="modal-overlay" class="modal-overlay" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button id="close-modal" class="close-button" type="button" aria-label="Cerrar ventana">×</button>
+      <div class="modal-icon" aria-hidden="true">👤</div>
+      <p class="modal-kicker">DETALLES DEL AUTOR</p>
+      <h2 id="modal-title">Información del usuario</h2>
+      <p id="modal-subtitle" class="modal-subtitle">Datos obtenidos desde la API</p>
+      <div id="user-details" class="user-details"></div>
+      <button id="done-button" class="done-button" type="button">Cerrar</button>
+    </section>
+  </div>
+
+  <footer>
+    <p>Actividad académica · Consumo de API REST con JavaScript</p>
+  </footer>
+</body>
+</html>
+
+
+
+Nota técnica:
+La aplicación consulta https://jsonplaceholder.typicode.com/posts y
+https://jsonplaceholder.typicode.com/users. Relaciona cada publicación con
+su autor mediante post.userId y user.id. Los datos se obtienen de la API.
+
+const POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
+const USERS_URL = "https://jsonplaceholder.typicode.com/users";
+
+const postsContainer = document.getElementById("posts-container");
+const statusMessage = document.getElementById("status");
+const resultsCount = document.getElementById("results-count");
+const modalOverlay = document.getElementById("modal-overlay");
+const userDetails = document.getElementById("user-details");
+const modalTitle = document.getElementById("modal-title");
+const modalSubtitle = document.getElementById("modal-subtitle");
+const closeModalButton = document.getElementById("close-modal");
+const doneButton = document.getElementById("done-button");
+const reloadButton = document.getElementById("reload-button");
+
+let usersById = new Map();
+let lastFocusedCard = null;
+
+async function loadData() {
+  statusMessage.className = "status";
+  statusMessage.textContent = "Conectando con JSONPlaceholder...";
+  postsContainer.replaceChildren();
+  resultsCount.textContent = "Cargando publicaciones...";
+  reloadButton.disabled = true;
+
+  try {
+    // Consultamos las publicaciones y los usuarios al mismo tiempo.
+    const [postsResponse, usersResponse] = await Promise.all([
+      fetch(POSTS_URL),
+      fetch(USERS_URL)
+    ]);
+
+    if (!postsResponse.ok || !usersResponse.ok) {
+      throw new Error("La API respondió con un error.");
+    }
+
+    const [posts, users] = await Promise.all([
+      postsResponse.json(),
+      usersResponse.json()
+    ]);
+
+    // Guardamos los usuarios en un mapa para encontrarlos por su ID.
+    usersById = new Map(users.map(user => [user.id, user]));
+
+    renderPosts(posts);
+    resultsCount.textContent = `${posts.length} publicaciones disponibles`;
+    statusMessage.textContent = "";
+  } catch (error) {
+    console.error("Error al cargar la API:", error);
+    statusMessage.className = "status error";
+    statusMessage.textContent =
+      "No se pudieron cargar los datos. Revisa tu conexión a Internet e inténtalo de nuevo.";
+    resultsCount.textContent = "No se pudieron cargar las publicaciones.";
+  } finally {
+    reloadButton.disabled = false;
+  }
+}
+
+function renderPosts(posts) {
+  const fragment = document.createDocumentFragment();
+
+  posts.forEach(post => {
+    const user = usersById.get(post.userId);
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "post-card";
+    card.setAttribute("aria-label", `Ver información del autor de ${post.title}`);
+
+    const number = document.createElement("span");
+    number.className = "post-number";
+    number.textContent = `#${post.id}`;
+
+    const title = document.createElement("h3");
+    title.textContent = post.title;
+
+    const body = document.createElement("p");
+    body.className = "post-body";
+    body.textContent = post.body;
+
+    const footer = document.createElement("div");
+    footer.className = "card-footer";
+
+    const avatar = document.createElement("span");
+    avatar.className = "avatar";
+    avatar.textContent = user ? user.name.charAt(0).toUpperCase() : "?";
+
+    const author = document.createElement("span");
+    author.textContent = user ? user.name : `Usuario ${post.userId}`;
+
+    footer.append(avatar, author);
+    card.append(number, title, body, footer);
+
+    card.addEventListener("click", () => {
+      lastFocusedCard = card;
+      showUserModal(post.userId);
+    });
+
+    fragment.appendChild(card);
+  });
+
+  postsContainer.appendChild(fragment);
+}
+
+function showUserModal(userId) {
+  const user = usersById.get(userId);
+
+  if (!user) {
+    statusMessage.className = "status error";
+    statusMessage.textContent = "No se encontró la información de ese usuario.";
+    return;
+  }
+
+  modalTitle.textContent = user.name;
+  modalSubtitle.textContent = `Información del usuario #${user.id}`;
+
+  const fields = [
+    ["ID", String(user.id)],
+    ["Name", user.name],
+    ["Username", user.username],
+    ["Email", user.email],
+    ["Phone", user.phone],
+    ["Website", user.website]
+  ];
+
+  userDetails.replaceChildren();
+
+  fields.forEach(([label, value]) => {
+    const row = document.createElement("div");
+    row.className = "detail-row";
+
+    const labelElement = document.createElement("span");
+    labelElement.className = "detail-label";
+    labelElement.textContent = label;
+
+    const valueElement = document.createElement("span");
+    valueElement.className = "detail-value";
+
+    if (label === "Email") {
+      const emailLink = document.createElement("a");
+      emailLink.href = `mailto:${value}`;
+      emailLink.textContent = value;
+      valueElement.appendChild(emailLink);
+    } else if (label === "Website") {
+      const websiteLink = document.createElement("a");
+      websiteLink.href = `https://${value}`;
+      websiteLink.target = "_blank";
+      websiteLink.rel = "noopener noreferrer";
+      websiteLink.textContent = value;
+      valueElement.appendChild(websiteLink);
+    } else {
+      valueElement.textContent = value;
+    }
+
+    row.append(labelElement, valueElement);
+    userDetails.appendChild(row);
+  });
+
+  modalOverlay.hidden = false;
+  closeModalButton.focus();
+}
+
+function closeModal() {
+  modalOverlay.hidden = true;
+  if (lastFocusedCard) lastFocusedCard.focus();
+}
+
+closeModalButton.addEventListener("click", closeModal);
+doneButton.addEventListener("click", closeModal);
+reloadButton.addEventListener("click", loadData);
+
+// Cerrar al pulsar fuera de la ventana.
+modalOverlay.addEventListener("click", event => {
+  if (event.target === modalOverlay) closeModal();
+});
+
+// Cerrar con la tecla Escape.
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !modalOverlay.hidden) closeModal();
+});
+
+loadData();
